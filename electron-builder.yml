@@ -1,0 +1,74 @@
+appId: com.aetherium.ledger
+productName: Aetherium Ledger
+copyright: Copyright © 2024
+
+directories:
+  output: dist-electron
+  buildResources: build
+
+files:
+  - dist/**/*
+  - electron/**/*
+  - public/pwa-512x512.png
+  - "!node_modules/**/*"
+
+extraMetadata:
+  main: electron/main.js
+
+# Windows configuration
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  icon: public/pwa-512x512.png
+  artifactName: "${productName}-Setup-${version}.${ext}"
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Aetherium Ledger
+  uninstallDisplayName: Aetherium Ledger
+
+# macOS configuration
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  icon: public/pwa-512x512.png
+  category: public.app-category.finance
+  artifactName: "${productName}-${version}-${arch}.${ext}"
+
+dmg:
+  title: "${productName}"
+  contents:
+    - x: 130
+      y: 220
+    - x: 410
+      y: 220
+      type: link
+      path: /Applications
+
+# Linux configuration
+linux:
+  target:
+    - target: AppImage
+      arch:
+        - x64
+  icon: public/pwa-512x512.png
+  category: Office
+  artifactName: "${productName}-${version}.${ext}"
+
+appImage:
+  license: MIT
+
+# Compression
+compression: normal
+
+# Publish configuration (disabled by default)
+publish: null
